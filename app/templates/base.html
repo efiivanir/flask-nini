@@ -1,0 +1,37 @@
+<html>
+    <head>
+        {% if title %}
+            <title>{{ title }} - Nini DB</title>
+        {% else %}
+            <title>Nini DB</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            ניניצופ בסיסי נתונים:
+            <a href="{{ url_for('index') }}">בית</a>
+            {% if current_user.is_anonymous %}
+                <a href="{{ url_for('login') }}">כניסה</a>
+            {% else %}
+                <a href="{{ url_for('logout') }}">יציאה</a>
+            {% endif %}
+
+            {% if current_user.username == 'admin' %}
+                <a href="{{ url_for('admin') }}">Admin</a>
+            {% endif %}
+
+
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

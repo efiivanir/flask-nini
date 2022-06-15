@@ -1,0 +1,13 @@
+pip
+setuptools
+wheel
+ipython
+flask
+pytest
+python-dotenv
+flask-wtf
+flask-sqlalchemy
+flask-migrate
+flask-shell-ipython
+flask-login
+
