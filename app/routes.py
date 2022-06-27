@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
-from app import app
-from app.forms import LoginForm
+from app import app,db
+from app.forms import LoginForm,AddTherapistForm
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
 from app.models import Therapist
@@ -43,8 +43,32 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/admin')
+@app.route('/add_therapist', methods=['GET', 'POST'])
 @login_required
-def admin():
+def add_therapist():
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('index'))
+    form = AddTherapistForm()
+    if form.validate_on_submit():
+        user = Therapist(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('add_therapist.html', title='Add Therapist', form=form)
 
-    return render_template("admin.html", title='Admin Page')
+@app.route('/yad_davids')
+@login_required
+def yad_davids():
+    posts = [
+        {
+            'author': {'username': 'John'},
+            'body': 'Beautiful day in Portland!'
+        },
+        {
+            'author': {'username': 'Susan'},
+            'body': 'The Avengers movie was so cool!'
+        }
+    ]
+    return render_template("index.html", title='Home Page', posts=posts)

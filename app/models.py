@@ -11,11 +11,6 @@ def load_user(id):
     return Therapist.query.get(int(id))
 
 
-class PatientsStatus(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    status = db.Column(db.String(10), index=True, unique=True)
-
-
 class Therapist(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)

@@ -8,7 +8,7 @@
     </head>
     <body>
         <div>
-            ניניצופ בסיסי נתונים:
+            Nini Chop DB program
             <a href="{{ url_for('index') }}">בית</a>
             {% if current_user.is_anonymous %}
                 <a href="{{ url_for('login') }}">כניסה</a>
@@ -16,8 +16,9 @@
                 <a href="{{ url_for('logout') }}">יציאה</a>
             {% endif %}
 
-            {% if current_user.username == 'admin' %}
-                <a href="{{ url_for('admin') }}">Admin</a>
+            {% if current_user.username == 'ivanir' %}
+                <a href="{{ url_for('add_therapist') }}">Add Therapist</a>
+                <a href="{{ url_for('yad_davids') }}">Yad Davids</a>
             {% endif %}
 
 
