@@ -1,9 +1,11 @@
 from flask import render_template, flash, redirect, url_for, request
-from app import app,db
+from app import app,db,admin_required
 from app.forms import LoginForm,AddTherapistForm
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
 from app.models import Therapist
+
+
 
 @app.route('/')
 @app.route('/index')
@@ -45,6 +47,7 @@ def logout():
 
 @app.route('/add_therapist', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def add_therapist():
     # if current_user.is_authenticated:
     #     return redirect(url_for('index'))
@@ -60,6 +63,7 @@ def add_therapist():
 
 @app.route('/yad_davids')
 @login_required
+@admin_required
 def yad_davids():
     posts = [
         {

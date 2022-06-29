@@ -71,3 +71,5 @@ class House(db.Model):
 
     def __repr__(self):
         return '<House {}>'.format(self.main_first_name, self.main_last_name)
+
+
