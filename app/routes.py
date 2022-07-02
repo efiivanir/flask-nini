@@ -45,6 +45,15 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/view_therapists', methods=['GET'])
+@login_required
+@admin_required
+def view_therapists():
+    therapists = Therapist.query.all()
+    return render_template('view_therapists.html',
+                           title='View Therapists', therapists=therapists)
+
+
 @app.route('/add_therapist', methods=['GET', 'POST'])
 @login_required
 @admin_required

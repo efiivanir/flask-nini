@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th> </th>
+            <th> Username </th>
+            <th> Email </th>
+            <th> FirstName </th>
+            <th> LastName </th>
+            <th> Tzid </th>
+            <th> Action </th>
+        <tr>
+    </thead>
+    <tbody>
+        {% for therapist in therapists %}
+            <tr>
+                <td><img src="{{ therapist.avatar(36) }}"></td>
+                <td>{{ therapist.username }}</td>
+                <td>{{ therapist.email}}</td>
+                <td>{{ therapist.first_name }} </td>
+                <td>{{ therapist.last_name}}</td>
+                <td>{{ therapist.tz_id }}</td>
+                <td>View Profile</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}

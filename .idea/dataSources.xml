@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="nini" uuid="1588aa0a-f800-4154-8eff-b21400fb970a">
+    <data-source source="LOCAL" name="nini" uuid="a936ebd0-c527-4692-94a3-b1cf92415991">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

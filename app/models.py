@@ -1,3 +1,5 @@
+from hashlib import md5
+
 from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -14,11 +16,11 @@ def load_user(id):
 class Therapist(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)
-    email = db.Column(db.String(120), index=True, nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True,nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    first_name = db.Column(db.String(16), nullable=False)
-    last_name = db.Column(db.String(32), nullable=False)
-    tz_id = db.Column(db.String(9), index=True, nullable=False)
+    first_name = db.Column(db.String(16))
+    last_name = db.Column(db.String(32))
+    tz_id = db.Column(db.String(9), index=True)
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     phone = db.Column(db.String(15))
@@ -33,6 +35,11 @@ class Therapist(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def avatar(self, size):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
+
     def __repr__(self):
         return '<Therapist {}>'.format(self.username)
 
@@ -45,14 +52,14 @@ class House(db.Model):
     main_birth_year = db.Column(db.Integer)
     main_phone = db.Column(db.String(15))
     main_is_dutch = db.Column(db.Boolean)
-    main_status_id = db.Column(db.Integer, db.ForeignKey('patients_status.id'))
+    main_status = db.Column(db.String(15))
 
     second_first_name = db.Column(db.String(64))
     second_last_name = db.Column(db.String(64))
     second_birth_year = db.Column(db.Integer)
     second_phone = db.Column(db.String(15))
     second_is_dutch = db.Column(db.Boolean)
-    second_status_id = db.Column(db.Integer, db.ForeignKey('patients_status.id'))
+    second_status = db.Column(db.String(15))
 
     address_city = db.Column(db.String(64), nullable=False)
     address_street = db.Column(db.String(64), nullable=False)
